@@ -1,6 +1,6 @@
 import * as mongoose from "mongoose"
 import {Document, Schema} from "mongoose"
-import {Challenge, ChallengeTypes, Input} from "./types"
+import {Challenge, ChallengeTypes} from "./types"
 
 
 export type MongooseDocument = Document & Challenge

@@ -1,4 +1,4 @@
-import {Challenge} from "./types";
+import {Challenge, UpdChallenge} from "./types";
 import {challengeMongooseModel} from "./mongooseSchema";
 
 class ChallengeDbController {
@@ -9,10 +9,15 @@ class ChallengeDbController {
             audioUrl: challenge.audioUrl,
             type: challenge.type,
             data: challenge.data,
-            citizen: challenge.citizen,
+            telegramUserId: challenge.telegramUserId,
         })
 
         return newChallenge.save()
+    }
+
+    updateChallenge = async (challenge: UpdChallenge): Promise<Challenge | null> => {
+        return challengeMongooseModel
+            .findByIdAndUpdate(challenge?._id, {...challenge}, {}).exec()
     }
 }
 

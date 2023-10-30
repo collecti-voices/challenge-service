@@ -1,20 +1,17 @@
-import {InputChallengeSchema, OutputChallengeSchema} from "./types";
+import {Challenge, InputChallengeSchema, OutputChallengeSchema, UpdChallenge} from "./types";
 import {challengeDbController} from "./dbController";
 
 class ChallengeService {
-    createChallenge = async (inputChallengeSchema: InputChallengeSchema): Promise<OutputChallengeSchema> => {
-        const newChallenge = await challengeDbController.createChallenge({
+    create = async (inputChallengeSchema: InputChallengeSchema): Promise<OutputChallengeSchema> => {
+        return await challengeDbController.createChallenge({
             ...inputChallengeSchema
         })
+    }
 
-        return {
-            _id: newChallenge._id,
-            text: newChallenge.text,
-            audioUrl: newChallenge.audioUrl,
-            type: newChallenge.type,
-            data: newChallenge.data,
-            citizen: newChallenge.citizen
-        }
+    update = async (updChallenge: UpdChallenge): Promise<OutputChallengeSchema> => {
+        const challenge: Challenge | null =  await challengeDbController.updateChallenge(updChallenge)
+
+        return challenge as OutputChallengeSchema
     }
 }
 

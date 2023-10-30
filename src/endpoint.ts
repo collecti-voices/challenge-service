@@ -1,5 +1,10 @@
 import {defaultEndpointsFactory} from "express-zod-api"
-import {inputChallengeSchema, outputChallengeSchema} from "./zodSchema"
+import {
+    inputChallengeSchema,
+    inputUpdateChallengeSchema,
+    outputChallengeSchema,
+    outputUpdateChallengeSchema
+} from "./zodSchema"
 import {challengeService} from "./challengeService";
 
 export const createChallengeEndpoint = defaultEndpointsFactory.build({
@@ -7,8 +12,15 @@ export const createChallengeEndpoint = defaultEndpointsFactory.build({
     input: inputChallengeSchema,
     output: outputChallengeSchema,
     handler: async ({input, options, logger }) => {
-        return challengeService.createChallenge(input)
+        return challengeService.create(input)
     },
 })
 
-
+export const updateChallengeEndpoint = defaultEndpointsFactory.build({
+    method: "put",
+    input: inputUpdateChallengeSchema,
+    output: outputUpdateChallengeSchema,
+    handler: async ({input, options, logger }) => {
+        return challengeService.update(input)
+    },
+})
